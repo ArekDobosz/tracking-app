@@ -5,8 +5,7 @@ const lat = 54.43047329917815;
 const lng = 18.53338886216462;
 
 const regNumbers: string[] = [];
-for (let i = 1000; i < 1100; i++) {
-  // for (let i = 1000; i < 2000; i++) {
+for (let i = 1000; i < 2000; i++) {
   regNumbers.push(`GD ${i}`);
 }
 

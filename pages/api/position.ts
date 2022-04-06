@@ -33,8 +33,8 @@ export default async (
 
       res.status(200).json({ pos: randomPositions });
     } catch (e) {
-      console.log(e);
-      res.status(500).json({ message: e });
+      console.error(e);
+      res.status(500);
     }
   } else {
     res.status(404).json({ message: 'Not found' });

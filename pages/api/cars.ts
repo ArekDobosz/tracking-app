@@ -26,7 +26,8 @@ export default async (req: ApiRequest, res: NextApiResponse): Promise<void> => {
       });
       res.status(200).json(cars);
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      res.status(500);
     }
   } else {
     res.status(404).json({ message: 'Not found' });
