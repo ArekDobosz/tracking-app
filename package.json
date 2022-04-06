@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{ts,tsx,scss,css,json}\"",
+    "test": "jest --watch"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
@@ -15,18 +20,48 @@
     "@emotion/styled": "^11.8.1",
     "@fontsource/roboto": "^4.5.3",
     "@googlemaps/js-api-loader": "^1.13.8",
-    "@googlemaps/markerclusterer": "^1.0.26",
+    "@googlemaps/markerclusterer": "^1.0.27",
+    "@googlemaps/react-wrapper": "^1.1.27",
     "@mui/material": "^5.4.4",
+    "@prisma/client": "^3.10.0",
+    "axios": "^0.26.1",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "5.16.2",
+    "@testing-library/react": "12.1.3",
+    "@testing-library/user-event": "13.5.0",
     "@types/google.maps": "^3.48.2",
-    "@types/node": "17.0.21",
+    "@types/node": "^17.0.21",
     "@types/react": "17.0.39",
     "eslint": "8.10.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "16.1.0",
     "eslint-config-next": "12.1.0",
-    "typescript": "4.6.2"
-  }
+    "eslint-config-prettier": "8.5.0",
+    "eslint-config-react-app": "7.0.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-simple-import-sort": "7.0.0",
+    "eslint-plugin-testing-library": "5.0.6",
+    "eslint-plugin-unused-imports": "2.0.0",
+    "jest": "27.5.1",
+    "prisma": "^3.10.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "next.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArekDobosz/tracking-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArekDobosz/tracking-app/issues"
+  },
+  "homepage": "https://github.com/ArekDobosz/tracking-app#readme"
 }

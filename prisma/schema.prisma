@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Car {
+  id        Int      @id @default(autoincrement())
+  regNumber String   @unique @map("reg_number")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  position Position[]
+  @@index([regNumber], map: "regNumber")
+  @@map("cars")
+}
+
+model Position {
+  id    Int   @id @default(autoincrement())
+  carId Int   @map("car_id")
+  lat   Float
+  lng   Float
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  car   Car   @relation(fields: [carId], references: [id])
+
+  @@index([carId], map: "carId")
+  @@map("positions")
+}

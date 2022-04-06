@@ -1,30 +1,60 @@
-import { VFC } from 'react';
+import { useEffect, useRef, useState, VFC } from 'react';
+import { GridAlgorithm, MarkerClusterer } from '@googlemaps/markerclusterer';
 import { Box } from '@mui/material';
-import { Loader } from '@googlemaps/js-api-loader';
+import { defaultLat, defaultLng, defaultMapZoom } from 'consts';
+import { CarPosition } from 'types';
 
-import { useGoogleMaps } from './useGoogleMaps';
+import { mapPositionsToMarkers } from './utils';
 
-const loader = new Loader({
-  apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY || '',
-  version: 'weekly',
-  libraries: ['places'],
-});
+interface Props extends google.maps.MapOptions {
+  positions: CarPosition[];
+}
 
-const rand = () => Math.random() / 10;
+export const Map: VFC<Props> = (props) => {
+  const { positions } = props;
 
-export const Map: VFC = () => {
-  const pins = [];
-  for (let i = 0; i < 1000; i = i + 1) {
-    const lat = 54.43047329917815;
-    const lng = 18.53338886216462;
-    pins.push({
-      lat: lat - rand(),
-      lng: lng - rand(),
-    });
-  }
-  useGoogleMaps('map', pins);
+  const ref = useRef<HTMLDivElement>(null);
+  const [map, setMap] = useState<google.maps.Map>();
+  const [markers, setMarkers] = useState<google.maps.Marker[]>();
+  const [clusters, setClusters] = useState<MarkerClusterer>();
 
-  console.log('render');
+  useEffect(() => {
+    if (ref.current && !map) {
+      setMap(
+        new window.google.maps.Map(ref.current, {
+          center: { lat: defaultLat, lng: defaultLng },
+          zoom: defaultMapZoom,
+        })
+      );
+    }
+  }, [ref, map]);
 
-  return <Box id="map" sx={{ width: '100%', height: 600 }} />;
+  useEffect(() => {
+    if (clusters) {
+      clusters.clearMarkers();
+    }
+    setMarkers((prevMarkers) => mapPositionsToMarkers(positions, prevMarkers));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [positions, map]);
+
+  useEffect(() => {
+    if (map && markers) {
+      const cluster = new MarkerClusterer({
+        markers,
+        map,
+        algorithm: new GridAlgorithm({ maxDistance: 5000, gridSize: 100 }),
+      });
+      setClusters(cluster);
+    }
+  }, [map, markers]);
+
+  return (
+    <Box
+      sx={{
+        width: '100%',
+        height: '600px',
+      }}
+      ref={ref}
+    />
+  );
 };

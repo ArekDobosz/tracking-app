@@ -29,13 +29,14 @@ MyDocument.getInitialProps = async (ctx) => {
   const cache = createEmotionCache();
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
-  /* eslint-disable */
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App: any) => (props) =>
-        <App emotionCache={cache} {...props} />,
+      enhanceApp: (App) =>
+        function EnhanceApp(props) {
+          const newProps = { emotionCache: cache, ...props };
+          return <App {...newProps} />;
+        },
     });
-  /* eslint-enable */
 
   const initialProps = await Document.getInitialProps(ctx);
 
@@ -50,9 +51,6 @@ MyDocument.getInitialProps = async (ctx) => {
 
   return {
     ...initialProps,
-    styles: [
-      ...React.Children.toArray(initialProps.styles),
-      ...emotionStyleTags,
-    ],
+    emotionStyleTags,
   };
 };

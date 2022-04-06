@@ -12,8 +12,6 @@ export const Layout: FC = ({ children }) => {
       <main>
         <Container maxWidth="lg">{children}</Container>
       </main>
-
-      <footer>stopka</footer>
     </>
   );
 };

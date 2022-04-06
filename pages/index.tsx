@@ -1,12 +1,12 @@
 import type { NextPage } from 'next';
-import { Layout } from '../components/layout';
 
-import { Map } from '../components/map';
+import { Layout } from '../components/layout';
+import { MapContainer } from '../components/map';
 
 const Home: NextPage = (props) => {
   return (
     <Layout>
-      <Map />
+      <MapContainer />
     </Layout>
   );
 };

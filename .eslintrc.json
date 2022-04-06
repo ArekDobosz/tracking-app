@@ -1,42 +1,51 @@
 {
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
-  },
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
+    "react-app",
+    "react-app/jest",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:prettier/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:prettier/recommended"
   ],
-  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "simple-import-sort",
+    "unused-imports",
+    "testing-library"
+  ],
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module"
+    "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "react/prop-types": "off",
-    "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
-    "react/react-in-jsx-scope": "off",
-    "jsx-a11y/anchor-is-valid": [
+    "@typescript-eslint/no-unused-vars": "off",
+    "simple-import-sort/imports": [
       "error",
       {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight"],
-        "aspects": ["invalidHref", "preferButton"]
+        "groups": [["^react", "^next", "^@?\\w"], ["^src/"]]
+      }
+    ],
+    "simple-import-sort/exports": "error",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "ignoreRestSiblings": true,
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ]
 }
