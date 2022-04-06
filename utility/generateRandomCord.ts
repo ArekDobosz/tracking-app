@@ -1,5 +1,3 @@
-// 54.44945694743926, 18.570083635924906
-
 const rand = () => Math.random() / 100;
 
 export const generateRandomCord = (cord: number) => {
