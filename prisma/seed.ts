@@ -4,8 +4,11 @@ import { prismaClient } from '../utility/prisma';
 const lat = 54.43047329917815;
 const lng = 18.53338886216462;
 
+const startItem = 1000;
+const totalItems = 100;
+
 const regNumbers: string[] = [];
-for (let i = 1000; i < 2000; i++) {
+for (let i = startItem; i < startItem + totalItems; i++) {
   regNumbers.push(`GD ${i}`);
 }
 
